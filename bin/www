@@ -8,7 +8,7 @@ import http from 'http'
 import Debug from 'debug'
 import app from '../app'
 
-const debug = Debug('express-boilerplate-es6:server')
+let debug = Debug('express-boilerplate-es6:server')
 
 /**
  * Get port from environment and store in Express.
