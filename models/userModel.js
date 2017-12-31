@@ -6,6 +6,14 @@ const userSchema = new Schema({
   email: String,
   gender: String,
   avatar: String,
+  followers: [{
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  }],
+  following: [{
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  }],
   isAdmin: {
     type: Boolean,
     default: false
