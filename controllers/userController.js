@@ -9,7 +9,7 @@ class UserController {
       avatar: req.body.avatar,
       bio: req.body.bio
     }
-    
+
     newUser.save()
     .then(newUser => res.status(200).json({
       message: 'Success create new user',
