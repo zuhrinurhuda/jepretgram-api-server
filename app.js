@@ -10,9 +10,14 @@ import mongoose from 'mongoose'
 import index from './routes/index'
 import users from './routes/users'
 
-// set up db
-mongoose.connect(`${process.env.MONGO_ATLAS}`, { useMongoClient: true })
+// set up db ${process.env.MONGO_ATLAS}
+mongoose.connect(`mongodb+srv://zuhri:z02u12u90@cluster0-67zih.mongodb.net/jepretgram`)
 mongoose.Promise = global.Promise
+// const db = mongoose.connection
+// db.on('error', console.error.bind(console, 'connection error:'))
+// db.once('open', function () {
+  // console.log('connected')
+// })
 
 const app = express()
 
