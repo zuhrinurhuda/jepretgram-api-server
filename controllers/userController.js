@@ -2,20 +2,20 @@ import User from '../models/userModel'
 
 class UserController {
   static create (req, res) {
-    let newUser = {
+    let newUser = new User({
       name: req.body.name,
       email: req.body.email,
       gender: req.body.gender,
       avatar: req.body.avatar,
       bio: req.body.bio
-    }
+    })
 
     newUser.save()
     .then(newUser => res.status(200).json({
       message: 'Success create new user',
       data: newUser
     }))
-    .catch(err => res.status(500).send(err))
+    .catch(err => res.status(200).send(err))
   }
 
   static findAll (req, res) {

@@ -2,12 +2,12 @@ import Photo from '../models/photoModel'
 
 class PhotoController {
   static create (req, res) {
-    let newPhoto = {
+    let newPhoto = new Photo({
       uploader: req.body.uploader,
+      photoUrl: req.body.photoUrl,
       caption: req.body.caption,
-      hashtags: req.body.hashtags,
-      photoUrl: req.body.photoUrl
-    }
+      hashtags: req.body.hashtags.split(' ')
+    })
 
     newPhoto.save()
     .then(newPhoto => res.status(200).json({
@@ -30,7 +30,7 @@ class PhotoController {
     Photo.findById(req.params.id)
     .then(photo => {
       photo.caption = req.body.caption || photo.caption
-      photo.hashtags = req.body.hashtags || photo.hashtags
+      photo.hashtags = req.body.hashtags.split(' ') || photo.hashtags
 
       photo.save()
       .then(newPhotoData => res.status(200).json({

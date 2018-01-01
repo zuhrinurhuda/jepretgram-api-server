@@ -1,5 +1,4 @@
 import mongoose, { Schema } from 'mongoose'
-// const Schema = mongoose.Schema
 
 const userSchema = new Schema({
   name: String,
@@ -9,11 +8,11 @@ const userSchema = new Schema({
   bio: String,
   followers: [{
     type: Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'users'
   }],
   following: [{
     type: Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'users'
   }],
   isAdmin: {
     type: Boolean,
@@ -25,4 +24,5 @@ const userSchema = new Schema({
   }
 })
 
-export const User = mongoose.model('User', userSchema)
+const User = mongoose.model('users', userSchema)
+export default User
