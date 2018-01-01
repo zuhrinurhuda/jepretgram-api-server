@@ -3,18 +3,20 @@ import mongoose, { Schema } from 'mongoose'
 const photoSchema = new Schema({
   uploader: {
     type: Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'users'
   },
-  caption: String,
-  hashtags: String,
   photoUrl: String,
+  caption: String,
+  hashtags: [{
+    type: String
+  }],
   likes: [{
     type: Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'users'
   }],
   comments: [{
     type: Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'users'
   }],
   updatedAt: {
     type: Date,
@@ -22,5 +24,5 @@ const photoSchema = new Schema({
   }
 })
 
-const Photo = mongoose.model('Photo', photoSchema)
+const Photo = mongoose.model('photos', photoSchema)
 export default Photo

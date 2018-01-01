@@ -8,11 +8,11 @@ const userSchema = new Schema({
   bio: String,
   followers: [{
     type: Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'users'
   }],
   following: [{
     type: Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'users'
   }],
   isAdmin: {
     type: Boolean,
@@ -24,5 +24,5 @@ const userSchema = new Schema({
   }
 })
 
-const User = mongoose.model('User', userSchema)
+const User = mongoose.model('users', userSchema)
 export default User
