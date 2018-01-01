@@ -10,15 +10,11 @@ import mongoose from 'mongoose'
 import index from './routes/index'
 import users from './routes/users'
 
-// set up db ${process.env.MONGO_ATLAS}
-mongoose.connect(`mongodb+srv://zuhri:z02u12u90@cluster0-67zih.mongodb.net/jepretgram`)
-mongoose.Promise = global.Promise
-// const db = mongoose.connection
-// db.on('error', console.error.bind(console, 'connection error:'))
-// db.once('open', function () {
-  // console.log('connected')
-// })
+// set up db
+mongoose.connect(`mongodb://zuhri:${process.env.MONGO_ATLAS}@cluster0-shard-00-00-67zih.mongodb.net:27017,cluster0-shard-00-01-67zih.mongodb.net:27017,cluster0-shard-00-02-67zih.mongodb.net:27017/jepretgram?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin`)
+.catch(err => console.log(err))
 
+// instance app
 const app = express()
 
 // middleware
@@ -29,7 +25,7 @@ app.use(cors())
 
 // website routes
 app.use('/', index)
-app.use('/users', users)
+app.use('/api/users', users)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,5 +1,4 @@
 import mongoose, { Schema } from 'mongoose'
-// const Schema = mongoose.Schema
 
 const photoSchema = new Schema({
   uploader: {
@@ -23,4 +22,5 @@ const photoSchema = new Schema({
   }
 })
 
-export const Photo = mongoose.model('Photo', photoSchema)
+const Photo = mongoose.model('Photo', photoSchema)
+export default Photo
