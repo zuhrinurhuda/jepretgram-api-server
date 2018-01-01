@@ -1,7 +1,6 @@
-import jwt from 'jsonwebtoken'
+import FB from 'fb'
 
 const setAccessToken = (req, res, next) => {
-  console.log(req.headers)
   FB.setAccessToken(req.headers.accesstoken)
   next()
 }

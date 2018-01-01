@@ -1,23 +1,35 @@
+import getFacebookData from '../helpers/getFacebookData'
 import User from '../models/userModel'
 
 class UserController {
   static loginOrSignup (req, res) {
-    console.log(req.headers)
-    console.log(req.body)
-    let newUser = new User({
-      name: req.body.name,
-      email: req.body.email,
-      gender: req.body.gender,
-      avatar: req.body.avatar,
-      bio: req.body.bio
-    })
+    getFacebookData()
+    .then(facebook => {
+      console.log(facebook)
+      User.findOne({ email: facebook.email })
+      .then(user => {
+        if (user) {
+          // jika user ada
+        } else {
+          // jika user belum ada
+          let newUser = new User({
+            name: req.body.name,
+            email: req.body.email,
+            gender: req.body.gender,
+            avatar: req.body.avatar,
+            bio: req.body.bio
+          })
 
-    newUser.save()
-    .then(newUser => res.status(200).json({
-      message: 'Success create new user',
-      data: newUser
-    }))
-    .catch(err => res.status(200).send(err))
+          newUser.save()
+          .then(newUser => res.status(200).json({
+            message: 'Success create new user',
+            data: newUser
+          }))
+          .catch(err => res.status(200).send(err))
+        }
+      })
+    })
+    .catch(err => res.status(500).send(err))
   }
 
   static create (req, res) {
