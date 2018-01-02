@@ -2,8 +2,11 @@ import Photo from '../models/photoModel'
 
 class PhotoController {
   static create (req, res) {
+    // console.log('req.body --> ', req.body)
+    // console.log('req.file --> ', req.file)
+    // console.log('req.decoded --> ', req.decoded)
     let newPhoto = new Photo({
-      uploader: req.body.uploader,
+      uploader: req.decoded._id,
       photoUrl: req.body.photoUrl,
       caption: req.body.caption,
       hashtags: req.body.hashtags.split(' ')
