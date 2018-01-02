@@ -1,30 +1,39 @@
-import getFacebookData from '../helpers/getFacebookData'
+import getFbData from '../helpers/getFbData'
+import generateJwtToken from '../helpers/generateJwtToken'
 import User from '../models/userModel'
 
 class UserController {
   static loginOrSignup (req, res) {
-    getFacebookData()
+    getFbData()
     .then(facebook => {
-      console.log(facebook)
       User.findOne({ email: facebook.email })
       .then(user => {
         if (user) {
           // jika user ada
+          generateJwtToken(user)
+          .then(token => res.status(200).json({
+            message: 'Success generate token',
+            data: token
+          }))
+          .catch(err => res.status(200).send(err))
         } else {
           // jika user belum ada
           let newUser = new User({
-            name: req.body.name,
-            email: req.body.email,
-            gender: req.body.gender,
-            avatar: req.body.avatar,
-            bio: req.body.bio
+            name: facebook.name,
+            email: facebook.email,
+            gender: facebook.gender,
+            avatar: facebook.picture.data.url
           })
 
           newUser.save()
-          .then(newUser => res.status(200).json({
-            message: 'Success create new user',
-            data: newUser
-          }))
+          .then(newUser => {
+            generateJwtToken(newUser)
+            .then(token => res.status(200).json({
+              message: 'Success generate token',
+              data: token
+            }))
+            .catch(err => res.status(200).send(err))
+          })
           .catch(err => res.status(200).send(err))
         }
       })
