@@ -59,6 +59,15 @@ class UserController {
     .catch(err => res.status(200).send(err))
   }
 
+  static findByUserId(req, res) {
+    User.findById({ _id: req.decoded._id })
+    .then(user => res.status(200).json({
+      message: 'Success find user',
+      data: user
+    }))
+    .catch(err => res.status(500).send(err))
+  }
+
   static findAll(req, res) {
     User.find()
       .then(users => res.status(200).json({
