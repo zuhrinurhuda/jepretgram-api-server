@@ -1,15 +1,56 @@
+import getFbData from '../helpers/getFbData'
+import generateJwtToken from '../helpers/generateJwtToken'
 import User from '../models/userModel'
 
 class UserController {
+  static loginOrSignup (req, res) {
+    getFbData()
+    .then(facebook => {
+      User.findOne({ email: facebook.email })
+      .then(user => {
+        if (user) {
+          // jika user ada
+          generateJwtToken(user)
+          .then(token => res.status(200).json({
+            message: 'Success generate token',
+            data: token
+          }))
+          .catch(err => res.status(200).send(err))
+        } else {
+          // jika user belum ada
+          let newUser = new User({
+            name: facebook.name,
+            email: facebook.email,
+            gender: facebook.gender,
+            avatar: facebook.picture.data.url
+          })
+
+          newUser.save()
+          .then(newUser => {
+            generateJwtToken(newUser)
+            .then(token => res.status(200).json({
+              message: 'Success generate token',
+              data: token
+            }))
+            .catch(err => res.status(200).send(err))
+          })
+          .catch(err => res.status(200).send(err))
+        }
+      })
+    })
+    .catch(err => res.status(500).send(err))
+  }
+
   static create (req, res) {
     let newUser = new User({
       name: req.body.name,
       email: req.body.email,
       gender: req.body.gender,
       avatar: req.body.avatar,
-      bio: req.body.bio
+      bio: req.body.bio,
+      isAdmin: req.body.isAdmin
     })
-
+    
     newUser.save()
     .then(newUser => res.status(200).json({
       message: 'Success create new user',
@@ -18,13 +59,22 @@ class UserController {
     .catch(err => res.status(200).send(err))
   }
 
-  static findAll (req, res) {
-    User.find()
-    .then(users => res.status(200).json({
-      message: 'Success find all users',
-      data: users
+  static findByUserId(req, res) {
+    User.findById({ _id: req.decoded._id })
+    .then(user => res.status(200).json({
+      message: 'Success find user',
+      data: user
     }))
     .catch(err => res.status(500).send(err))
+  }
+
+  static findAll(req, res) {
+    User.find()
+      .then(users => res.status(200).json({
+        message: 'Success find all users',
+        data: users
+      }))
+      .catch(err => res.status(500).send(err))
   }
 
   static update (req, res) {
