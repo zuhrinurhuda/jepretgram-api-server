@@ -1,12 +1,12 @@
 import multer from 'multer'
 
-const multerConfig = multer({
+const config = multer({
   storage: multer.memoryStorage(),
   limits: {
     fileSize: 10 * 1024 * 1024
   }
 })
 
-const upload = multerConfig.single('photo')
+const multerUpload = config.single('photo')
 
-export default upload
+export default multerUpload
