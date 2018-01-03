@@ -19,6 +19,7 @@ class PhotoController {
 
   static findAll (req, res) {
     Photo.find()
+    .populate('uploader')
     .then(photos => res.status(200).json({
       message: 'Success find all photos',
       data: photos
