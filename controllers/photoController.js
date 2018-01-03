@@ -17,6 +17,17 @@ class PhotoController {
     .catch(err => res.status(500).send(err))
   }
 
+  static findByUserId(req, res) {
+    console.log(req.decoded)
+    Photo.find({ uploader: req.decoded._id })
+    .populate('uploader')
+    .then(photos => res.status(200).json({
+      message: 'Success find all photos',
+      data: photos
+    }))
+    .catch(err => res.status(500).send(err))
+  }
+
   static findAll (req, res) {
     Photo.find()
     .populate('uploader')

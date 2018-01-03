@@ -11,8 +11,8 @@ const router = Router()
 router.post('/login', setFbAccessToken, user.loginOrSignup)
 router.post('/', user.create)
 router.get('/profile', checkAuth.isLogin, user.findByUserId)
-router.get('/', user.findAll)
-router.put('/:id', user.update)
-router.delete('/:id', user.delete)
+router.get('/', checkAuth.isLogin , user.findAll)
+router.put('/:id', checkAuth.isLogin , user.update)
+router.delete('/:id', checkAuth.isLogin , user.delete)
 
 export default router

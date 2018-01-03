@@ -21,6 +21,10 @@ const userSchema = new Schema({
   updatedAt: {
     type: Date,
     default: null
+  },
+  createdAt: {
+    type: Date,
+    default: new Date()
   }
 })
 
