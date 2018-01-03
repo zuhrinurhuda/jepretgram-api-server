@@ -9,7 +9,7 @@ import photo from '../controllers/photoController'
 const router = Router()
 
 router.post('/', checkAuth.isLogin, multerUpload, uploadToGCS, photo.create)
-router.get('/', photo.findAll)
+router.get('/', checkAuth.isLogin, photo.findAll)
 router.put('/:id', checkAuth.isLogin, photo.update)
 router.delete('/:id', checkAuth.isLogin, photo.delete)
 

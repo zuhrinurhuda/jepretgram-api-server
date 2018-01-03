@@ -2,8 +2,7 @@ import Storage from '@google-cloud/storage'
 
 const storage = Storage({
   projectId: process.env.PROJECT_ID,
-  keyFilename: 'keyfile.json'
-  // process.env.KEY_FILE_PATH
+  keyFilename: process.env.KEY_FILE_PATH
 })
 
 const bucketName = process.env.BUCKET_NAME
@@ -14,7 +13,7 @@ const getPublicUrl = (filename) => {
 }
 
 const uploadToGCS = (req, res, next) => {
-  // console.log('masuk ga? ', req.file)
+  // console.log('--> start ', req.file)
   if (!req.file) {
     return next()
   }
@@ -27,8 +26,8 @@ const uploadToGCS = (req, res, next) => {
     metadata: {
       contentType: req.file.mimetype
     }
+    // console.log('--> 3. ', metadata)
   })
-  // console.log('--> 3. ', stream)
   stream.on('error', err => {
     // console.log('--> 4. ', err)
     req.file.cloudStorageError = err

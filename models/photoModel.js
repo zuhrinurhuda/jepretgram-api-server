@@ -21,6 +21,10 @@ const photoSchema = new Schema({
   updatedAt: {
     type: Date,
     default: null
+  },
+  uploadedAt: {
+    type: Date,
+    default: new Date()
   }
 })
 
