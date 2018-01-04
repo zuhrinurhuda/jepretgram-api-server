@@ -78,11 +78,18 @@ class UserController {
   }
 
   static update (req, res) {
+    console.log('masuk?')
     User.findById(req.params.id)
     .then(user => {
-      user.name = req.body.name || user.name
-      user.avatar = req.body.avatar || user.avatar
-      user.bio = req.body.bio || user.bio
+      let userIndex = user.followers.findIndex(element => {
+        return element == req.decoded._id
+      })
+
+      if (userIndex === -1) {
+        user.followers.push(req.decoded._id)
+      } else {
+        user.followers.splice(userIndex, 1)
+      }
 
       user.save()
       .then(newUserData => res.status(200).json({
