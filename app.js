@@ -10,6 +10,7 @@ import mongoose from 'mongoose'
 import index from './routes/index'
 import users from './routes/users'
 import photos from './routes/photos'
+import comments from './routes/comments'
 
 // set up db
 mongoose.connect(`mongodb://zuhri:${process.env.MONGO_ATLAS}@cluster0-shard-00-00-67zih.mongodb.net:27017,cluster0-shard-00-01-67zih.mongodb.net:27017,cluster0-shard-00-02-67zih.mongodb.net:27017/jepretgram2?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin`)
@@ -28,6 +29,7 @@ app.use(cors())
 app.use('/', index)
 app.use('/api/users', users)
 app.use('/api/photos', photos)
+app.use('/api/comments', comments)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

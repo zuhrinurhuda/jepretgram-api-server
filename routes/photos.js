@@ -13,7 +13,8 @@ router.post('/', checkAuth.isLogin, multerUpload, uploadToGCS, photo.create)
 router.get('/profile', checkAuth.isLogin, photo.findByUserId)
 router.get('/', checkAuth.isLogin, photo.findAll)
 
-router.put('/like/:id', checkAuth.isLogin, photo.liked)
+router.put('/:id/like', checkAuth.isLogin, photo.liked)
+// router.put('/:id/comment', checkAuth.isLogin, photo.comment)
 router.put('/:id', checkAuth.isLogin, photo.update)
 
 router.delete('/:id', checkAuth.isLogin, photo.delete)

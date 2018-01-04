@@ -100,13 +100,8 @@ class UserController {
   }
 
   static following (req, res) {
-    console.log('req.body --> ', req.body.uploader._id)
-    console.log('req.decoded --> ', req.decoded._id)
-    // console.log('req.headers --> ', req.headers)
-    // console.log('req.params --> ', req.params)
     User.findById(req.decoded._id)
     .then(user => {
-      console.log(user)
       let userIndex = user.following.findIndex(element => {
         return element == req.body.uploader._id
       })
