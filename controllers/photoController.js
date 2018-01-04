@@ -38,10 +38,6 @@ class PhotoController {
   }
 
   static liked (req, res) {
-    // console.log('req.body --> ', req.body)
-    // console.log('req.decoded --> ', req.decoded)
-    // console.log('req.headers --> ', req.headers)
-    // console.log('req.params --> ', req.params)
     Photo.findById(req.params.id)
     .then(photo => {
       let userIndex = photo.likes.findIndex(element => {

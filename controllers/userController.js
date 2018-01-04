@@ -77,8 +77,7 @@ class UserController {
       .catch(err => res.status(500).send(err))
   }
 
-  static update (req, res) {
-    console.log('masuk?')
+  static follower (req, res) {
     User.findById(req.params.id)
     .then(user => {
       let userIndex = user.followers.findIndex(element => {
@@ -93,7 +92,34 @@ class UserController {
 
       user.save()
       .then(newUserData => res.status(200).json({
-        message: 'Success update user data',
+        message: 'Success follow/unfollow user',
+        data: newUserData
+      }))
+      .catch(err => res.status(500).send(err))
+    })
+  }
+
+  static following (req, res) {
+    console.log('req.body --> ', req.body.uploader._id)
+    console.log('req.decoded --> ', req.decoded._id)
+    // console.log('req.headers --> ', req.headers)
+    // console.log('req.params --> ', req.params)
+    User.findById(req.decoded._id)
+    .then(user => {
+      console.log(user)
+      let userIndex = user.following.findIndex(element => {
+        return element == req.body.uploader._id
+      })
+
+      if (userIndex === -1) {
+        user.following.push(req.body.uploader._id)
+      } else {
+        user.following.splice(userIndex, 1)
+      }
+
+      user.save()
+      .then(newUserData => res.status(200).json({
+        message: 'Success following/unfollowing user',
         data: newUserData
       }))
       .catch(err => res.status(500).send(err))

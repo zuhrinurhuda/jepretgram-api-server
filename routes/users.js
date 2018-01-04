@@ -14,7 +14,9 @@ router.post('/', user.create)
 router.get('/profile', checkAuth.isLogin, user.findByUserId)
 router.get('/', checkAuth.isLogin , user.findAll)
 
-router.put('/:id', checkAuth.isLogin , user.update)
+router.put('/follower/:id', checkAuth.isLogin, user.follower)
+router.put('/following', checkAuth.isLogin, user.following)
+// router.put('/:id', checkAuth.isLogin, user.update)
 
 router.delete('/:id', checkAuth.isLogin , user.delete)
 
