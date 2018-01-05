@@ -24,7 +24,6 @@ class UserController {
             gender: facebook.gender,
             avatar: facebook.picture.data.url
           })
-
           newUser.save()
           .then(newUser => {
             generateJwtToken(newUser)
@@ -50,7 +49,6 @@ class UserController {
       bio: req.body.bio,
       isAdmin: req.body.isAdmin
     })
-    
     newUser.save()
     .then(newUser => res.status(200).json({
       message: 'Success create new user',
@@ -80,16 +78,18 @@ class UserController {
   static follower (req, res) {
     User.findById(req.params.id)
     .then(user => {
-      let userIndex = user.followers.findIndex(element => {
-        return element == req.decoded._id
-      })
-
-      if (userIndex === -1) {
-        user.followers.push(req.decoded._id)
+      if (user._id == req.decoded._id) {
+        // console.log('nothing')
       } else {
-        user.followers.splice(userIndex, 1)
+        let userIndex = user.followers.findIndex(element => {
+          return element == req.decoded._id
+        })
+        if (userIndex === -1) {
+          user.followers.push(req.decoded._id)
+        } else {
+          user.followers.splice(userIndex, 1)
+        }
       }
-
       user.save()
       .then(newUserData => res.status(200).json({
         message: 'Success follow/unfollow user',
@@ -102,16 +102,18 @@ class UserController {
   static following (req, res) {
     User.findById(req.decoded._id)
     .then(user => {
-      let userIndex = user.following.findIndex(element => {
-        return element == req.body.uploader._id
-      })
-
-      if (userIndex === -1) {
-        user.following.push(req.body.uploader._id)
+      if (user._id == req.body.uploader._id) {
+        // console.log('nothing')
       } else {
-        user.following.splice(userIndex, 1)
+        let userIndex = user.following.findIndex(element => {
+          return element == req.body.uploader._id
+        })
+        if (userIndex === -1) {
+          user.following.push(req.body.uploader._id)
+        } else {
+          user.following.splice(userIndex, 1)
+        }
       }
-
       user.save()
       .then(newUserData => res.status(200).json({
         message: 'Success following/unfollowing user',
