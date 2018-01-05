@@ -29,7 +29,20 @@ class PhotoController {
 
   static findAll (req, res) {
     Photo.find()
-    .populate('uploader')
+    .populate([
+      {
+        path: 'uploader',
+        model: 'users',
+      },
+      {
+        path: 'comments',
+        model: 'comments',
+        populate: {
+          path: 'user',
+          model: 'users'
+        }
+      }
+    ])
     .then(photos => res.status(200).json({
       message: 'Success find all photos',
       data: photos
@@ -37,7 +50,7 @@ class PhotoController {
     .catch(err => res.status(500).send(err))
   }
 
-  static liked (req, res) {
+  static like (req, res) {
     Photo.findById(req.params.id)
     .then(photo => {
       let userIndex = photo.likes.findIndex(element => {
@@ -53,6 +66,20 @@ class PhotoController {
       photo.save()
       .then(newPhotoData => res.status(200).json({
         message: 'Success like/dislike photo',
+        data: newPhotoData
+      }))
+      .catch(err => res.status(500).send(err))
+    })
+  }
+
+  static comment (req, res) {
+    Photo.findById(req.params.id)
+    .then(photo => {
+      photo.comments.push(req.body._id)
+
+      photo.save()
+      .then(newPhotoData => res.status(200).json({
+        message: 'Success comment photo',
         data: newPhotoData
       }))
       .catch(err => res.status(500).send(err))

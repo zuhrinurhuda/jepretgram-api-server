@@ -1,11 +1,7 @@
 import mongoose, { Schema } from 'mongoose'
 
 const commentSchema = new Schema({
-  photoId: {
-    type: Schema.Types.ObjectId,
-    ref: 'photos'
-  },
-  commentator: {
+  user: {
     type: Schema.Types.ObjectId,
     ref: 'users'
   },

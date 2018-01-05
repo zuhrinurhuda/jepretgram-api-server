@@ -16,7 +16,7 @@ const photoSchema = new Schema({
   }],
   comments: [{
     type: Schema.Types.ObjectId,
-    ref: 'users'
+    ref: 'comments'
   }],
   updatedAt: {
     type: Date,
