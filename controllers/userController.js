@@ -24,7 +24,6 @@ class UserController {
             gender: facebook.gender,
             avatar: facebook.picture.data.url
           })
-
           newUser.save()
           .then(newUser => {
             generateJwtToken(newUser)
@@ -50,7 +49,6 @@ class UserController {
       bio: req.body.bio,
       isAdmin: req.body.isAdmin
     })
-    
     newUser.save()
     .then(newUser => res.status(200).json({
       message: 'Success create new user',
@@ -77,16 +75,48 @@ class UserController {
       .catch(err => res.status(500).send(err))
   }
 
-  static update (req, res) {
+  static follower (req, res) {
     User.findById(req.params.id)
     .then(user => {
-      user.name = req.body.name || user.name
-      user.avatar = req.body.avatar || user.avatar
-      user.bio = req.body.bio || user.bio
-
+      if (user._id == req.decoded._id) {
+        // console.log('nothing')
+      } else {
+        let userIndex = user.followers.findIndex(element => {
+          return element == req.decoded._id
+        })
+        if (userIndex === -1) {
+          user.followers.push(req.decoded._id)
+        } else {
+          user.followers.splice(userIndex, 1)
+        }
+      }
       user.save()
       .then(newUserData => res.status(200).json({
-        message: 'Success update user data',
+        message: 'Success follow/unfollow user',
+        data: newUserData
+      }))
+      .catch(err => res.status(500).send(err))
+    })
+  }
+
+  static following (req, res) {
+    User.findById(req.decoded._id)
+    .then(user => {
+      if (user._id == req.body.uploader._id) {
+        // console.log('nothing')
+      } else {
+        let userIndex = user.following.findIndex(element => {
+          return element == req.body.uploader._id
+        })
+        if (userIndex === -1) {
+          user.following.push(req.body.uploader._id)
+        } else {
+          user.following.splice(userIndex, 1)
+        }
+      }
+      user.save()
+      .then(newUserData => res.status(200).json({
+        message: 'Success following/unfollowing user',
         data: newUserData
       }))
       .catch(err => res.status(500).send(err))
