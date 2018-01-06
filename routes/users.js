@@ -20,7 +20,7 @@ router.get('/profile', checkAuth.isLogin, user.findByUserId)
 router.get('/', checkAuth.isLogin , user.findAll)
 
 // update
-router.put('/follower/:id', checkAuth.isLogin, user.follower)
+router.put('/:id/follower', checkAuth.isLogin, user.follower)
 router.put('/following', checkAuth.isLogin, user.following)
 
 // delete
