@@ -17,6 +17,7 @@ router.post('/', checkAuth.isLogin, multerUpload, uploadToGCS, photo.create)
 
 // read
 router.get('/profile', checkAuth.isLogin, photo.findByUserId)
+router.get('/:id', checkAuth.isLogin, photo.findById)
 router.get('/', checkAuth.isLogin, photo.findAll)
 
 // update

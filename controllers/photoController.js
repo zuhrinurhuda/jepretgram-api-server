@@ -19,9 +19,33 @@ class PhotoController {
   static findByUserId(req, res) {
     Photo.find({ uploader: req.decoded._id })
     .populate('uploader')
+    .sort({ uploadedAt: 'desc' })
     .then(photos => res.status(200).json({
-      message: 'Success find all photos',
+      message: 'Success find user photos',
       data: photos
+    }))
+    .catch(err => res.status(500).send(err))
+  }
+
+  static findById(req, res) {
+    Photo.findById(req.params.id)
+    .populate([
+      {
+        path: 'uploader',
+        model: 'users',
+      },
+      {
+        path: 'comments',
+        model: 'comments',
+        populate: {
+          path: 'user',
+          model: 'users'
+        }
+      }
+    ])
+    .then(photo => res.status(200).json({
+      message: 'Success find photo',
+      data: photo
     }))
     .catch(err => res.status(500).send(err))
   }
@@ -42,6 +66,8 @@ class PhotoController {
         }
       }
     ])
+    .sort({ uploadedAt: 'desc' })
+    // .limit(12)
     .then(photos => res.status(200).json({
       message: 'Success find all photos',
       data: photos
