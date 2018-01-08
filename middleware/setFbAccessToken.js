@@ -1,8 +1,9 @@
-import FB from 'fb'
+// require library
+const FB = require('fb')
 
 const setFbAccessToken = (req, res, next) => {
   FB.setAccessToken(req.headers.accesstoken)
   next()
 }
 
-export default setFbAccessToken
+module.exports = setFbAccessToken

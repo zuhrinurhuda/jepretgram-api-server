@@ -1,12 +1,9 @@
 // import library
-import { Router } from 'express'
-
-// instance router
-const router = Router()
+const router =  require('express').Router()
 
 // homepage route
 router.get('/', function(req, res, next) {
   res.send('Hello World')
 })
 
-export default router
+module.exports = router

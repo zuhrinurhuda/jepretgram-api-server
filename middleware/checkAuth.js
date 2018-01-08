@@ -1,4 +1,5 @@
-import jwt from 'jsonwebtoken'
+// require library
+const jwt = require('jsonwebtoken')
 
 class CheckAuth {
   // Authentication
@@ -23,4 +24,4 @@ class CheckAuth {
   // }
 }
 
-export default CheckAuth
+module.exports = CheckAuth

@@ -1,5 +1,8 @@
-import mongoose, { Schema } from 'mongoose'
+// require libabries
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 
+// create schema
 const photoSchema = new Schema({
   uploader: {
     type: Schema.Types.ObjectId,
@@ -24,9 +27,9 @@ const photoSchema = new Schema({
   },
   uploadedAt: {
     type: Date,
-    default: new Date()
+    default: Date.now
   }
 })
 
-const Photo = mongoose.model('photos', photoSchema)
-export default Photo
+const photoModel = mongoose.model('photos', photoSchema)
+module.exports = photoModel
