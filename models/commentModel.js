@@ -1,5 +1,8 @@
-import mongoose, { Schema } from 'mongoose'
+// require libabries
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 
+// create schema
 const commentSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
@@ -12,9 +15,9 @@ const commentSchema = new Schema({
   },
   commentedAt: {
     type: Date,
-    default: new Date()
+    default: Date.now
   }
 })
 
-const Comment = mongoose.model('comments', commentSchema)
-export default Comment
+const commentModel = mongoose.model('comments', commentSchema)
+module.exports = commentModel

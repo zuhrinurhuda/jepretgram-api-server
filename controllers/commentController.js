@@ -1,4 +1,5 @@
-import Comment from '../models/commentModel'
+// require model
+const Comment = require('../models/commentModel')
 
 class CommentController {
   static create (req, res) {
@@ -25,4 +26,4 @@ class CommentController {
   }
 }
 
-export default CommentController
+module.exports = CommentController

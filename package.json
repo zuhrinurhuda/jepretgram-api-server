@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "pm2 start ./bin/www",
-    "dev": "nodemon ./bin/www --exec babel-node --presets env"
+    "dev": "nodemon ./bin/www",
+    "es6": "nodemon ./bin/www --exec babel-node --presets env"
   },
   "dependencies": {
     "@google-cloud/storage": "^1.5.1",

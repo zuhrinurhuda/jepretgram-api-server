@@ -1,4 +1,5 @@
-import FB from 'fb'
+// require library
+const FB = require('fb')
 
 const getFbData = () => {
   return new Promise ((resolve, reject) => {
@@ -12,4 +13,4 @@ const getFbData = () => {
   })
 }
 
-export default getFbData
+module.exports = getFbData

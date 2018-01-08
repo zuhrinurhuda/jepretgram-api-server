@@ -1,4 +1,5 @@
-import jwt from 'jsonwebtoken'
+// require library
+const jwt = require('jsonwebtoken')
 
 const generateJwtToken = (user) => {
   return new Promise ((resolve, reject) => {
@@ -17,4 +18,4 @@ const generateJwtToken = (user) => {
   })
 }
 
-export default generateJwtToken
+module.exports = generateJwtToken

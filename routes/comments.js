@@ -1,14 +1,11 @@
-// import library
-import { Router } from 'express'
+// require library
+const router = require('express').Router()
 
-// import middleware
-import checkAuth from '../middleware/checkAuth'
+// require middleware
+const checkAuth = require('../middleware/checkAuth')
 
-// import controller
-import comment from '../controllers/commentController'
-
-// instance router
-const router = Router()
+// require controller
+const comment = require('../controllers/commentController')
 
 // create
 router.post('/', checkAuth.isLogin, comment.create)
@@ -16,4 +13,4 @@ router.post('/', checkAuth.isLogin, comment.create)
 // read
 router.get('/:id', checkAuth.isLogin, comment.findByPhotoId)
 
-export default router
+module.exports =  router

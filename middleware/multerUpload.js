@@ -1,4 +1,5 @@
-import multer from 'multer'
+// require library
+const multer = require('multer')
 
 const config = multer({
   storage: multer.memoryStorage(),
@@ -8,5 +9,4 @@ const config = multer({
 })
 
 const multerUpload = config.single('photo')
-
-export default multerUpload
+module.exports = multerUpload
