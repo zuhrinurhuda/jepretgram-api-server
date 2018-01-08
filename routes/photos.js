@@ -1,16 +1,13 @@
-// import library
-import { Router } from 'express'
+// require library
+const router = require('express').Router()
 
-// import middleware
-import checkAuth from '../middleware/checkAuth'
-import multerUpload from '../middleware/multerUpload'
-import uploadToGCS from '../middleware/uploadToGCS'
+// require middleware
+const checkAuth = require('../middleware/checkAuth')
+const multerUpload = require('../middleware/multerUpload')
+const uploadToGCS = require('../middleware/uploadToGCS')
 
-// import controller
-import photo from '../controllers/photoController'
-
-// instance router
-const router = Router()
+// require controller
+const photo = require('../controllers/photoController')
 
 // create
 router.post('/', checkAuth.isLogin, multerUpload, uploadToGCS, photo.create)
@@ -28,4 +25,4 @@ router.put('/:id', checkAuth.isLogin, photo.update)
 // delete
 router.delete('/:id', checkAuth.isLogin, photo.delete)
 
-export default router
+module.exports = router

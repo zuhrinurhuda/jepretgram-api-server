@@ -1,13 +1,11 @@
-import Storage from '@google-cloud/storage'
-
+// require library
+const Storage = require('@google-cloud/storage')
 const storage = Storage({
   projectId: process.env.PROJECT_ID,
   keyFilename: process.env.KEY_FILE_PATH
 })
-
 const bucketName = process.env.BUCKET_NAME
 const bucket = storage.bucket(bucketName)
-
 const getPublicUrl = (filename) => {
   return `https://storage.googleapis.com/${bucketName}/${filename}`
 }
@@ -48,4 +46,4 @@ const uploadToGCS = (req, res, next) => {
   // console.log('Yey.. finish!!')
 }
 
-export default uploadToGCS
+module.exports = uploadToGCS

@@ -1,15 +1,12 @@
-// import library
-import { Router } from 'express'
+// require library
+const router = require('express').Router()
 
-// import middleware
-import setFbAccessToken from '../middleware/setFbAccessToken'
-import checkAuth from '../middleware/checkAuth'
+// require middleware
+const setFbAccessToken = require('../middleware/setFbAccessToken')
+const checkAuth = require('../middleware/checkAuth')
 
-// import controller
-import user from '../controllers/userController'
-
-// instance router
-const router = Router()
+// require controller
+const user = require('../controllers/userController')
 
 // create
 router.post('/login', setFbAccessToken, user.loginOrSignup)
@@ -26,4 +23,4 @@ router.put('/following', checkAuth.isLogin, user.following)
 // delete
 router.delete('/:id', checkAuth.isLogin , user.delete)
 
-export default router
+module.exports = router

@@ -1,4 +1,5 @@
-import Photo from '../models/photoModel'
+// require model
+const Photo = require('../models/photoModel')
 
 class PhotoController {
   static create (req, res) {
@@ -138,4 +139,4 @@ class PhotoController {
   }
 }
 
-export default PhotoController
+module.exports = PhotoController

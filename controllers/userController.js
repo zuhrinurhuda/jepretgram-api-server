@@ -1,6 +1,9 @@
-import getFbData from '../helpers/getFbData'
-import generateJwtToken from '../helpers/generateJwtToken'
-import User from '../models/userModel'
+// require helpers
+const getFbData = require('../helpers/getFbData')
+const generateJwtToken = require('../helpers/generateJwtToken')
+
+// require model
+const User = require('../models/userModel')
 
 class UserController {
   static loginOrSignup (req, res) {
@@ -133,4 +136,4 @@ class UserController {
   }
 }
 
-export default UserController
+module.exports = UserController
